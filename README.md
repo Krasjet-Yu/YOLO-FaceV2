@@ -15,8 +15,13 @@ YOLO-FaceV2: A Scale and Occlusion Aware Face Detector
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
+1.  train
+python train.py --weights preweight.pt --data data/WIDER_FACE.yaml --cfg models/yolov5s_v2_RFEM_MultiSEAM.yaml  --batch-size 16 --epochs 100
+2.  evaluate
+python widerface_pred.py --weights runs/train/x/weights/best.pt --save_folder ./widerface_evaluate/widerface_txt_x
+cd widerface_evaluate/
+python evaluation.py --pred ./widerface_txt_x
+
 3.  xxxx
 
 #### 参与贡献
