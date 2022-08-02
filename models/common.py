@@ -197,9 +197,9 @@ class TridentBlock(nn.Module):
 
         return base_feat
 
-class FEM(nn.Module):
+class RFEM(nn.Module):
     def __init__(self, c1, c2, n=1, e=0.5, stride=1):
-        super(FEM, self).__init__()
+        super(RFEM, self).__init__()
         c = True
         layers = []
         layers.append(TridentBlock(c1, c2, stride=stride, c=c, e=e))
@@ -404,7 +404,7 @@ class C3(nn.Module):
     def forward(self, x):
         return self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), dim=1))
 
-class C3FEM(nn.Module):
+class C3RFEM(nn.Module):
     def __init__(self, c1, c2, n=1, shortcut=True, e=0.5):  # ch_in, ch_out, number, shortcut, groups, expansion
         super().__init__()
         c_ = int(c2 * e)  # hidden channels
@@ -412,8 +412,8 @@ class C3FEM(nn.Module):
         self.cv2 = Conv(c1, c_, 1, 1)
         self.cv3 = Conv(2 * c_, c2, 1)  # act=FReLU(c2)
         # self.m = nn.Sequential(*(Bottleneck(c_, c_, shortcut, g, e=1.0) for _ in range(n)))
-        # self.fem = FEM(c_, c_, n)
-        self.m = nn.Sequential(*[FEM(c_, c_, n=1, e=e) for _ in range(n)])
+        # self.rfem = RFEM(c_, c_, n)
+        self.m = nn.Sequential(*[RFEM(c_, c_, n=1, e=e) for _ in range(n)])
         # self.m = nn.Sequential(*[CrossConv(c_, c_, 3, 1, g, 1.0, shortcut) for _ in range(n)])
 
     def forward(self, x):
