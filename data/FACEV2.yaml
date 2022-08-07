@@ -1,0 +1,9 @@
+train: /home/ici/kkDocuments/VOCdevkit/WIDER_FACE/train_v2.txt  # 16102 images
+val: /home/ici/kkDocuments/VOCdevkit/FDDB/val_v2.txt  # 2845 images
+
+# number of classes
+nc: 1
+
+# class names
+names: [ 'face' ]
+
