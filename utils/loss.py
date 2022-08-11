@@ -209,7 +209,7 @@ class ComputeLoss:
                 # Append targets to text file
                 # with open('targets.txt', 'a') as file:
                 #     [file.write('%11.5g ' * 4 % tuple(x) + '\n') for x in torch.cat((txy[i], twh[i]), 1)]
-            if self.u > 0:
+            if self.u > 0 and n:
                 obji = self.BCEobj(pi[..., 4], tobj, auto_iou)
             else:
                 obji = self.BCEobj(pi[..., 4], tobj)
