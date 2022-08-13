@@ -44,15 +44,18 @@ Wait for a few days...
 
 #### Training
 ```shell
-python train.py --weights preweight.pt   
-                --data data/WIDER_FACE.yaml --cfg models/yolov5s_v2_RFEM_MultiSEAM.yaml    --batch-size 32 --epochs 250
+python train.py --weights preweight.pt    
+                --data data/WIDER_FACE.yaml    
+                --cfg models/yolov5s_v2_RFEM_MultiSEAM.yaml     
+                --batch-size 32   
+                --epochs 250
 ```
 
 #### Evaluate   
 ```shell
-python widerface_pred.py --weights runs/train/x/weights/best.pt   
-                        --save_folder ./widerface_evaluate/widerface_txt_x
-cd widerface_evaluate/
+python widerface_pred.py --weights runs/train/x/weights/best.pt     
+                         --save_folder ./widerface_evaluate/widerface_txt_x    
+cd widerface_evaluate/    
 python evaluation.py --pred ./widerface_txt_x
 ```
 
@@ -78,8 +81,7 @@ done
 ```
 
 ### Reference
-*[https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)*
-*[https://github.com/deepcam-cn/yolov5-face](https://github.com/deepcam-cn/yolov5-face)*
-*[https://github.com/open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection)*
-*[https://github.com/dongdonghy/repulsion_loss_pytorch](https://github.com/dongdonghy/repulsion_loss_pytorch)*
-*[]()*
+*[https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)*    
+*[https://github.com/deepcam-cn/yolov5-face](https://github.com/deepcam-cn/yolov5-face)*   
+*[https://github.com/open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection)*   
+*[https://github.com/dongdonghy/repulsion_loss_pytorch](https://github.com/dongdonghy/repulsion_loss_pytorch)*   
