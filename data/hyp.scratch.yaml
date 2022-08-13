@@ -37,3 +37,4 @@ mosaic: 1.0  # image mosaic (probability)
 mixup: 0.0  # image mixup (probability)
 c: 3.0
 u: 1.0
+landmark: 0.5
