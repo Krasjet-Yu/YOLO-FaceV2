@@ -4,7 +4,7 @@
 YOLO-FaceV2: A Scale and Occlusion Aware Face Detector
 
 ### Framework Structure
-
+![](data/images/yolo-facev2.jpg)
 
 ### Requirments
 Create a Python Virtual Environment.   
