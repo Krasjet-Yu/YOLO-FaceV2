@@ -37,8 +37,9 @@ bash data/scripts/get_widerface.sh
 
 #### Dataset
 ```shell
-python3 data/convert.py
-python3 data/voc_label.py
+cd data
+python3 train2yolo.py /path/to/original/widerface/train [/path/to/save/widerface/train]
+python3 val2yolo.py  /path/to/original/widerface [/path/to/save/widerface/val]
 ```
 
 ### Preweight
