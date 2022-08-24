@@ -1,7 +1,6 @@
 # YOLOv5 common modules
 
 import math
-from copy import copy
 from pathlib import Path
 
 import numpy as np
@@ -290,6 +289,11 @@ class SEAM(nn.Module):
             nn.Sigmoid()
         )
 
+        self._initialize_weights()
+        # self.initialize_layer(self.avg_pool)
+        self.initialize_layer(self.fc)
+
+
     def forward(self, x):
         b, c, _, _ = x.size()
         y = self.DCovN(x)
@@ -297,6 +301,20 @@ class SEAM(nn.Module):
         y = self.fc(y).view(b, c, 1, 1)
         y = torch.exp(y)
         return x * y.expand_as(x)
+
+    def _initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.xavier_uniform_(m.weight, gain=1)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+
+    def initialize_layer(self, layer):
+        if isinstance(layer, (nn.Conv2d, nn.Linear)):
+            torch.nn.init.normal_(layer.weight, mean=0., std=0.001)
+            if layer.bias is not None:
+                torch.nn.init.constant_(layer.bias, 0)
 
 def DcovN(c1, c2, depth, kernel_size=3, patch_size=3):
     dcovn = nn.Sequential(

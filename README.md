@@ -7,7 +7,7 @@ YOLO-FaceV2: A Scale and Occlusion Aware Face Detector
 ### Framework Structure
 ![](data/images/yolo-facev2.jpg)
 
-### Requirments
+### Environment Requirments
 Create a Python Virtual Environment.   
 ```shell
 conda create -n {name} python=x.x
@@ -27,38 +27,52 @@ Install other python package.
 ```shell
 pip install -r requirements.txt
 ```
-   
+
 ### Step-Through Example
-#### Downloaded Dataset
+#### Installation
+Get the code.    
 ```shell
-bash data/scripts/get_widerface.sh
+git clone https://github.com/Krasjet-Yu/YOLO-FaceV2.git
 ```
 
 #### Dataset
+Download the [WIDER FACE](http://shuoyang1213.me/WIDERFACE/) dataset. Then convert it to YOLO format.
 ```shell
+# You can modify convert.py and voc_label.py if needed.
 python3 data/convert.py
 python3 data/voc_label.py
 ```
 
 ### Preweight
-Wait for a few days...
+link: [https://pan.baidu.com/s/1FVIY20qtTSM9gDhz7DtJkA](https://pan.baidu.com/s/1FVIY20qtTSM9gDhz7DtJkA)
+
+code: tzfs
 
 #### Training
+Train your model on WIDER FACE.
 ```shell
 python train.py --weights preweight.pt    
                 --data data/WIDER_FACE.yaml    
                 --cfg models/yolov5s_v2_RFEM_MultiSEAM.yaml     
-                --batch-size 32   
+                --batch-size 64   
                 --epochs 250
 ```
 
-#### Evaluate   
+#### Evaluate    
+
+​        Evaluate the trained model via next code on WIDER FACE 
+
 ```shell
 python widerface_pred.py --weights runs/train/x/weights/best.pt     
                          --save_folder ./widerface_evaluate/widerface_txt_x    
 cd widerface_evaluate/    
 python evaluation.py --pred ./widerface_txt_x
 ```
+Download the *[eval_tool](http://shuoyang1213.me/WIDERFACE/support/eval_script/eval_tools.zip)* to show the performance.    
+    
+The result is shown below:    
+![](data/images/evaluate.jpg)
+
 
 ### Finetune
 see in *[https://github.com/ultralytics/yolov5/issues/607](https://github.com/ultralytics/yolov5/issues/607)*
@@ -83,6 +97,37 @@ done
 
 ### Reference
 *[https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)*    
+    
 *[https://github.com/deepcam-cn/yolov5-face](https://github.com/deepcam-cn/yolov5-face)*   
+    
 *[https://github.com/open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection)*   
+    
 *[https://github.com/dongdonghy/repulsion_loss_pytorch](https://github.com/dongdonghy/repulsion_loss_pytorch)*   
+
+### cite
+
+If you think this work is helpful for you, please cite
+
+```shell
+@ARTICLE{2022arXiv220802019Y,
+       author = {{Yu}, Ziping and {Huang}, Hongbo and {Chen}, Weijun and {Su}, Yongxin and {Liu}, Yahui and {Wang}, Xiuying},
+        title = "{YOLO-FaceV2: A Scale and Occlusion Aware Face Detector}",
+      journal = {arXiv e-prints},
+     keywords = {Computer Science - Computer Vision and Pattern Recognition},
+         year = 2022,
+        month = aug,
+          eid = {arXiv:2208.02019},
+        pages = {arXiv:2208.02019},
+archivePrefix = {arXiv},
+       eprint = {2208.02019},
+ primaryClass = {cs.CV},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2022arXiv220802019Y},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+```
+
+### Contact
+
+It can use for business inquiries or professional support requests.
