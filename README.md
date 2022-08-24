@@ -71,6 +71,7 @@ python evaluation.py --pred ./widerface_txt_x
 Download the *[eval_tool](http://shuoyang1213.me/WIDERFACE/support/eval_script/eval_tools.zip)* to show the performance.    
     
 The result is shown below:    
+
 ![](data/images/evaluate.jpg)
 
 
@@ -130,4 +131,4 @@ archivePrefix = {arXiv},
 
 ### Contact
 
-It can use for business inquiries or professional support requests.
+We use code's license is MIT License. The code can be used for business inquiries or professional support requests.
