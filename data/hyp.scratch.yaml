@@ -6,14 +6,14 @@
 lr0: 0.0032  # initial learning rate (SGD=1E-2, Adam=1E-3)
 lrf: 0.12  # final OneCycleLR learning rate (lr0 * lrf)
 momentum: 0.937  # SGD momentum/Adam beta1
-weight_decay: 0.0005  # optimizer weight decay 5e-4
+weight_decay: 0.00036  # optimizer weight decay 5e-4
 warmup_epochs: 20.0  # warmup epochs (fractions ok)
-warmup_momentum: 0.8  # warmup initial momentum
-warmup_bias_lr: 0.1  # warmup initial bias lr
+warmup_momentum: 0.843  # warmup initial momentum
+warmup_bias_lr: 0.05  # warmup initial bias lr
 box: 0.05  # box loss gain
 cls: 0.5  # cls loss gain
 cls_pw: 1.0  # cls BCELoss positive_weight
-obj: 1.0  # obj loss gain (scale with pixels)
+obj: 0.7 # obj loss gain (scale with pixels)
 obj_pw: 1.0  # obj BCELoss positive_weight
 alpha: 0.01 # RepGT loss gain 0.04, init: 0.233 * 2
 beta: 0.1 # RepBox loss gain 0.6, init: 0.0222 * 2
@@ -35,5 +35,5 @@ flipud: 0.0  # image flip up-down (probability)
 fliplr: 0.5  # image flip left-right (probability)
 mosaic: 1.0  # image mosaic (probability)
 mixup: 0.0  # image mixup (probability)
-c: 3.0
+c: 1.0
 u: 1.0
