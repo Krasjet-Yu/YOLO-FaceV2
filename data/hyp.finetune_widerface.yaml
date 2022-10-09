@@ -1,44 +1,39 @@
-# Hyperparameters for VOC finetuning
-# python train.py --batch 64 --weights yolov5m.pt --data voc.yaml --img 512 --epochs 50
+# Hyperparameters for COCO training from scratch
+# python train.py --batch 40 --cfg yolov5m.yaml --weights '' --data coco.yaml --img 640 --epochs 300
 # See tutorials for hyperparameter evolution https://github.com/ultralytics/yolov5#tutorials
 
 
-# Hyperparameter Evolution Results
-# Generations: 306
-#                   P         R     mAP.5 mAP.5:.95       box       obj       cls
-# Metrics:        0.6     0.936     0.896     0.684    0.0115   0.00805   0.00146
-
-lr0: 0.0032
-lrf: 0.12
-momentum: 0.843
-weight_decay: 0.00036
-warmup_epochs: 2.0
-warmup_momentum: 0.5
-warmup_bias_lr: 0.05
-box: 0.0296
-cls: 0.243
-cls_pw: 0.631
-obj: 0.301
-obj_pw: 0.911
+lr0: 0.0032  # initial learning rate (SGD=1E-2, Adam=1E-3)
+lrf: 0.12  # final OneCycleLR learning rate (lr0 * lrf)
+momentum: 0.937  # SGD momentum/Adam beta1
+weight_decay: 0.00036  # optimizer weight decay 5e-4
+warmup_epochs: 20.0  # warmup epochs (fractions ok)
+warmup_momentum: 0.843  # warmup initial momentum
+warmup_bias_lr: 0.05  # warmup initial bias lr
+box: 0.05  # box loss gain
+cls: 0.5  # cls loss gain
+cls_pw: 1.0  # cls BCELoss positive_weight
+obj: 0.7 # obj loss gain (scale with pixels)
+obj_pw: 1.0  # obj BCELoss positive_weight
 alpha: 0.01 # RepGT loss gain 0.04, init: 0.233 * 2
 beta: 0.1 # RepBox loss gain 0.6, init: 0.0222 * 2
 deta: 0.5 # smooth_ln parameter
 Rp_nms: 0.1 # RepGT loss nms
-iou_t: 0.2
-anchor_t: 2.91
-# anchors: 3.63
-fl_gamma: 0.0
-hsv_h: 0.0138
-hsv_s: 0.664
-hsv_v: 0.464
-degrees: 0.373
-translate: 0.245
-scale: 0.898
-shear: 0.602
-perspective: 0.0
-flipud: 0.00856
-fliplr: 0.5
-mosaic: 1.0
-mixup: 0.243
+iou_t: 0.20  # IoU training threshold
+anchor_t: 4.0  # anchor-multiple threshold
+# anchors: 3  # anchors per output layer (0 to ignore)
+fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)
+hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
+hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)
+hsv_v: 0.4  # image HSV-Value augmentation (fraction)
+degrees: 0.0  # image rotation (+/- deg)
+translate: 0.1  # image translation (+/- fraction)
+scale: 0.5  # image scale (+/- gain)
+shear: 0.0  # image shear (+/- deg)
+perspective: 0.0  # image perspective (+/- fraction), range 0-0.001
+flipud: 0.0  # image flip up-down (probability)
+fliplr: 0.5  # image flip left-right (probability)
+mosaic: 1.0  # image mosaic (probability)
+mixup: 0.0  # image mixup (probability)
 c: 1.0
 u: 1.0
