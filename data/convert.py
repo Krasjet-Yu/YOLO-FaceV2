@@ -64,12 +64,15 @@ def clear_dir():
         shutil.rmtree(('Annotations'))
     if shutil.os.path.exists(('ImageSets')):
         shutil.rmtree(('ImageSets'))
-    if shutil.os.path.exists(('JPEGImages')):
-        shutil.rmtree(('JPEGImages'))
+    # if shutil.os.path.exists(('JPEGImages')):
+    #     shutil.rmtree(('JPEGImages'))
+    if shutil.os.path.exists(('images')):
+        shutil.rmtree(('images'))
 
     shutil.os.mkdir(('Annotations'))
     shutil.os.makedirs(('ImageSets/Main'))
-    shutil.os.mkdir(('JPEGImages'))
+    # shutil.os.mkdir(('JPEGImages'))
+    shutil.os.mkdir(('images'))
 
 
 def excute_datasets(idx, datatype):
@@ -98,7 +101,8 @@ def excute_datasets(idx, datatype):
             if bbx[7] == 0:
                 bbxes.append(bbx)
         writexml(idx, head, bbxes, tailstr)
-        shutil.copyfile(('WIDER_' + datatype + '/images/' + filename), ('JPEGImages/%06d.jpg' % (idx)))
+        # shutil.copyfile(('WIDER_' + datatype + '/images/' + filename), ('JPEGImages/%06d.jpg' % (idx)))
+        shutil.copyfile(('WIDER_' + datatype + '/images/' + filename), ('images/%06d.jpg' % (idx)))
         f.write('%06d\n' % (idx))
         idx += 1
     f.close()
