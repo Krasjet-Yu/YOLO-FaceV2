@@ -54,13 +54,20 @@ Train your model on WIDER FACE.
 python train.py --weights preweight.pt    
                 --data data/WIDER_FACE.yaml    
                 --cfg models/yolov5s_v2_RFEM_MultiSEAM.yaml     
-                --batch-size 64   
+                --batch-size 32   
                 --epochs 250
 ```
 
 #### Evaluate    
 
-​        Evaluate the trained model via next code on WIDER FACE 
+Evaluate the trained model via next code on WIDER FACE   
+        
+If you don't want to train, you can also directly use our trained model to evaluate.   
+
+link: [https://pan.baidu.com/s/1SblP-nwJR74Vxz0xcHPvew](https://pan.baidu.com/s/1SblP-nwJR74Vxz0xcHPvew)   
+
+code: 542o   
+
 
 ```shell
 python widerface_pred.py --weights runs/train/x/weights/best.pt     
@@ -72,7 +79,7 @@ Download the *[eval_tool](http://shuoyang1213.me/WIDERFACE/support/eval_script/e
     
 The result is shown below:    
 
-![](data/images/evaluate.jpg)
+![](data/images/eval.png)
 
 
 ### Finetune
