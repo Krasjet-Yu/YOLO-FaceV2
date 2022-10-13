@@ -1,13 +1,13 @@
 # YOLO-FaceV2
 
-### Introduction
+## Introduction
 YOLO-FaceV2: A Scale and Occlusion Aware Face Detector    
 *[https://arxiv.org/abs/2208.02019](https://arxiv.org/abs/2208.02019)*  
 
-### Framework Structure
+## Framework Structure
 ![](data/images/yolo-facev2.jpg)
 
-### Environment Requirments
+## Environment Requirments
 Create a Python Virtual Environment.   
 ```shell
 conda create -n {name} python=x.x
@@ -28,14 +28,14 @@ Install other python package.
 pip install -r requirements.txt
 ```
 
-### Step-Through Example
-#### Installation
+## Step-Through Example
+### Installation
 Get the code.    
 ```shell
 git clone https://github.com/Krasjet-Yu/YOLO-FaceV2.git
 ```
 
-#### Dataset
+### Dataset
 Download the [WIDER FACE](http://shuoyang1213.me/WIDERFACE/) dataset. Then convert it to YOLO format.
 ```shell
 # You can modify convert.py and voc_label.py if needed.
@@ -43,12 +43,11 @@ python3 data/convert.py
 python3 data/voc_label.py
 ```
 
-### Preweight
-link: [https://pan.baidu.com/s/1FVIY20qtTSM9gDhz7DtJkA](https://pan.baidu.com/s/1FVIY20qtTSM9gDhz7DtJkA)
+## Preweight
+The link is [yolo-facev2s.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v1.0/preweight.pt)
 
-code: tzfs
 
-#### Training
+### Training
 Train your model on WIDER FACE.
 ```shell
 python train.py --weights preweight.pt    
@@ -58,15 +57,13 @@ python train.py --weights preweight.pt
                 --epochs 250
 ```
 
-#### Evaluate    
+### Evaluate    
 
 Evaluate the trained model via next code on WIDER FACE   
         
 If you don't want to train, you can also directly use our trained model to evaluate.   
 
-link: [https://pan.baidu.com/s/1SblP-nwJR74Vxz0xcHPvew](https://pan.baidu.com/s/1SblP-nwJR74Vxz0xcHPvew)   
-
-code: 542o   
+The link is [yolo-facev2_last.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v1.0/best.pt)     
 
 
 ```shell
@@ -82,7 +79,7 @@ The result is shown below:
 ![](data/images/eval.png)
 
 
-### Finetune
+## Finetune
 see in *[https://github.com/ultralytics/yolov5/issues/607](https://github.com/ultralytics/yolov5/issues/607)*
 ```shell
 # Single-GPU
@@ -103,7 +100,7 @@ for i in 0 1 2 3 4 5 6 7; do
 done
 ```
 
-### Reference
+## Reference
 *[https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)*    
     
 *[https://github.com/deepcam-cn/yolov5-face](https://github.com/deepcam-cn/yolov5-face)*   
@@ -112,7 +109,8 @@ done
     
 *[https://github.com/dongdonghy/repulsion_loss_pytorch](https://github.com/dongdonghy/repulsion_loss_pytorch)*   
 
-### cite
+
+## Cite
 
 If you think this work is helpful for you, please cite
 
@@ -136,6 +134,6 @@ archivePrefix = {arXiv},
 
 ```
 
-### Contact
+## Contact
 
 We use code's license is MIT License. The code can be used for business inquiries or professional support requests.

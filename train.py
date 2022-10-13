@@ -99,7 +99,7 @@ def train(hyp, opt, device, tb_writer=None):
     test_path = data_dict['val']
 
     # Freeze
-    freeze = ['model.%s.' % x for x in range(9)]  # parameter names to freeze (full or partial)
+    freeze = ['model.%s.' % x for x in range(10)]  # parameter names to freeze (full or partial)
     # freeze = []
     for k, v in model.named_parameters():
         v.requires_grad = True  # train all layers
