@@ -13,9 +13,9 @@ def smooth_BCE(eps=0.1):  # https://github.com/ultralytics/yolov3/issues/238#iss
     # return positive, negative label smoothing BCE targets
     return 1.0 - 0.5 * eps, 0.5 * eps
 
-class reSwanLoss(nn.Module):
+class SlideLoss(nn.Module):
     def __init__(self, loss_fcn):
-        super(reSwanLoss, self).__init__()
+        super(SlideLoss, self).__init__()
         self.loss_fcn = loss_fcn
         self.reduction = loss_fcn.reduction
         self.loss_fcn.reduction = 'none'  # required to apply SL to each element
@@ -27,7 +27,7 @@ class reSwanLoss(nn.Module):
         b1 = true <= auto_iou - 0.1
         a1 = 1.0
         b2 = (true > (auto_iou - 0.1)) & (true < auto_iou)
-        a2 = math.exp(auto_iou)
+        a2 = math.exp(1.0 - auto_iou)
         b3 = true >= auto_iou
         a3 = torch.exp(-(true - 1.0))
         modulating_weight = a1 * b1 + a2 * b2 + a3 * b3
@@ -130,7 +130,7 @@ class ComputeLoss:
         # reswan loss
         self.u = h['u']
         if self.u > 0:
-            BCEcls, BCEobj = reSwanLoss(BCEcls), reSwanLoss(BCEobj)
+            BCEcls, BCEobj = SlideLoss(BCEcls), SlideLoss(BCEobj)
 
         # Focal loss
         g = h['fl_gamma']  # focal loss gamma
