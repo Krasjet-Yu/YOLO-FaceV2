@@ -20,7 +20,7 @@ beta: 0.1 # RepBox loss gain 0.6, init: 0.0222 * 2
 deta: 0.5 # smooth_ln parameter
 Rp_nms: 0.1 # RepGT loss nms
 iou_t: 0.20  # IoU training threshold
-anchor_t: 4.0  # anchor-multiple threshold
+anchor_t: 4.0  # anchor-multiple threshold                                                                                                   
 # anchors: 3  # anchors per output layer (0 to ignore)
 fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)
 hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
@@ -34,6 +34,6 @@ perspective: 0.0  # image perspective (+/- fraction), range 0-0.001
 flipud: 0.0  # image flip up-down (probability)
 fliplr: 0.5  # image flip left-right (probability)
 mosaic: 1.0  # image mosaic (probability)
-mixup: 0.1  # image mixup (probability)
+mixup: 0.0  # image mixup (probability)
 c: 1.0
 u: 1.0
