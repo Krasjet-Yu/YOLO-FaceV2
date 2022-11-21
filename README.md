@@ -57,6 +57,11 @@ python train.py --weights preweight.pt
                 --epochs 250
 ```
 
+### Test
+```shell
+python detect.py --weights ./preweight/best.pt --source ./data/images/test.jpg --plot-label --view-img
+```
+
 ### Evaluate    
 
 Evaluate the trained model via next code on WIDER FACE   

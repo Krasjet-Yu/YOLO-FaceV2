@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import torch
+from torchvision import transforms
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 from scipy.signal import butter, filtfilt
@@ -33,6 +34,36 @@ def color_list():
 
     return [hex2rgb(h) for h in matplotlib.colors.TABLEAU_COLORS.values()]  # or BASE_ (8), CSS4_ (148), XKCD_ (949)
 
+def feature_visualization(x, module_type, stage, feature_num=64, save_dir=Path('runs/detect/exp')):
+    """
+    x: The feature map which you need to visualization
+    module_type: The type of feature map
+    stage: The id of feature map
+    feature_num: The amount of visualization you need
+    """
+    if 'Detect' not in module_type:
+        # save_dir = "features/"
+        # if not os.path.exists(save_dir):
+        #     os.makedirs(save_dir)
+    
+        batch, channels, height, width = x.shape  # batch, channels, height, width
+        if height > 1 and width > 1:
+            f = save_dir / f"stage{stage}_{module_type.split('.')[-1]}_features.png"  # filename
+            # print(features.shape)
+            # block by channel dimension
+            blocks = torch.chunk(x[0].cpu(), channels, dim=0)  # select batch index 0, block by channels
+            feature_num = min(feature_num, channels)  # number of plots
+            # # size of feature
+            # size = features.shape[2], features.shape[3]
+            fig, ax = plt.subplots(math.ceil(feature_num / 8), 8, tight_layout=True)  # 8 rows x n/8 cols
+            ax = ax.ravel()
+            plt.subplots_adjust(wspace=0.05, hspace=0.05)
+            for i in range(feature_num):
+                ax[i].imshow(blocks[i].detach().squeeze())  # cmap='gray'
+                ax[i].axis('off')
+            plt.savefig(f, dpi=300, bbox_inches='tight')
+            plt.close()
+            np.save(str(f.with_suffix('.npy')), x[0].cpu().detach().numpy())  # npy save
 
 def hist2d(x, y, n=100):
     # 2d histogram used in labels.png and evolve.png
@@ -74,6 +105,17 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=3):
         cv2.rectangle(img, c1, c2, color, -1, cv2.LINE_AA)  # filled
         cv2.putText(img, label, (c1[0], c1[1] - 2), 0, tl / 3, [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
 
+def plot_text_label(img, color=None, label=None, line_thickness=3):
+    tl = line_thickness or round(0.002 * (img.shape[0] + img.shape[1]) / 2) + 1  # line/font thickness
+    h, w, _ = img.shape
+    if label:
+        tf = max(tl - 1, 1)  # font thickness
+        t_size = cv2.getTextSize(label, 0, fontScale=tl / 3, thickness=tf)[0]
+        x = int(w / 20 + t_size[0] / 2)
+        y = int(h / 5 + t_size[1] / 2)
+        # c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
+        # cv2.rectangle(img, c1, c2, color, -1, cv2.LINE_AA)  # filled
+        cv2.putText(img, label, (x, y), 0, tl / 3, [225, 0, 0], thickness=tf, lineType=cv2.LINE_AA)
 
 def plot_one_box_PIL(box, img, color=None, label=None, line_thickness=None):
     img = Image.fromarray(img)
