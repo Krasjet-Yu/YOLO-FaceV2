@@ -3,8 +3,8 @@
 # See tutorials for hyperparameter evolution https://github.com/ultralytics/yolov5#tutorials
 
 
-lr0: 0.0032  # initial learning rate (SGD=1E-2, Adam=1E-3)
-lrf: 0.12  # final OneCycleLR learning rate (lr0 * lrf)
+lr0: 0.032  # initial learning rate (SGD=1E-2, Adam=1E-3)
+lrf: 0.012  # final OneCycleLR learning rate (lr0 * lrf)
 momentum: 0.937  # SGD momentum/Adam beta1
 weight_decay: 0.00036  # optimizer weight decay 5e-4
 warmup_epochs: 20.0  # warmup epochs (fractions ok)

@@ -11,12 +11,12 @@ from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
 from utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, apply_classifier, \
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
-from utils.plots import plot_only_box
+from utils.plots import plot_only_box, plot_text_label, plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 
 def detect(save_img=False):
-    source, weights, view_img, save_txt, imgsz = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size
+    source, weights, view_img, plot_label, save_txt, imgsz = opt.source, opt.weights, opt.view_img, opt.plot_label, opt.save_txt, opt.img_size
     save_img = not opt.nosave and not source.endswith('.txt')  # save inference images
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -32,7 +32,7 @@ def detect(save_img=False):
 
     # Load model
     model = attempt_load(weights, map_location=device)  # load FP32 model
-    stride = int(model.stride.max())  # model stride
+    stride = int(model.stride.max())*2  # model stride
     imgsz = check_img_size(imgsz, s=stride)  # check img_size
     if half:
         model.half()  # to FP16
@@ -110,12 +110,16 @@ def detect(save_img=False):
 
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
-                        plot_only_box(xyxy, im0, color=colors[int(cls)], line_thickness=3)
-                        # plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
-
+                        # plot_only_box(xyxy, im0, color=colors[int(cls)], line_thickness=3)
+                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
+            
             # Print time (inference + NMS)
             print(f'{s}Done. ({t2 - t1:.3f}s)')
 
+            if plot_label:
+                label = f"the num of face is {len(det)}"
+                plot_text_label(im0, label=label, line_thickness=3)
+            
             # Stream results
             if view_img:
                 cv2.imshow(str(p), im0)
@@ -156,6 +160,7 @@ if __name__ == '__main__':
     parser.add_argument('--iou-thres', type=float, default=0.45, help='IOU threshold for NMS')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--view-img', action='store_true', help='display results')
+    parser.add_argument('--plot-label', action='store_true', help='display labels')
     parser.add_argument('--save-txt', action='store_true', help='save results to *.txt')
     parser.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')
     parser.add_argument('--nosave', action='store_true', help='do not save images/videos')
