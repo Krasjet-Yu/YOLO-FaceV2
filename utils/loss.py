@@ -182,6 +182,7 @@ class ComputeLoss:
         lrepBox, lrepGT = torch.zeros(1, device=device), torch.zeros(1, device=device)
         tcls, tbox, indices, anchors, tlandmarks, lmks_mask = self.build_targets(p, targets)  # targets
 
+        no = len(p)
         # Losses
         for i, pi in enumerate(p):  # layer index, layer predictions
             b, a, gj, gi = indices[i]  # image, anchor, gridy, gridx
@@ -262,6 +263,8 @@ class ComputeLoss:
 
         if self.autobalance:
             self.balance = [x / self.balance[self.ssi] for x in self.balance]
+            
+        s = 3 / no  # output count scaling
         lbox *= self.hyp['box']
         lobj *= self.hyp['obj']
         lcls *= self.hyp['cls']
