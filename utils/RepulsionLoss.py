@@ -29,8 +29,11 @@ def repulsion_loss_torch(pbox, gtbox, deta=0.5, pnms=0.1, gtnms=0.1, x1x2y1y2=Fa
     gtbox = gtbox.detach()
     gtbox_cpu = gtbox.cuda().data.cpu().numpy()
     pgiou = box_iou(pbox, gtbox, x1y1x2y2=x1x2y1y2)
+    pgiou = torch.where(torch.isnan(pgiou), torch.full_like(pgiou, 0), pgiou)
     pgiou = pgiou.cuda().data.cpu().numpy()
+    # if (torch.any(torch.isnan(ppiou)))
     ppiou = box_iou(pbox, pbox, x1y1x2y2=x1x2y1y2)
+    ppiou = torch.where(torch.isnan(ppiou), torch.full_like(ppiou, 0), ppiou)
     ppiou = ppiou.cuda().data.cpu().numpy()
     # t1 = time.time()
     len = pgiou.shape[0]

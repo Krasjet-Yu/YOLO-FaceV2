@@ -416,7 +416,7 @@ def box_iou(box1, box2, x1y1x2y2=True):
     """
 
     def box_area(box, x1y1x2y2=True):
-        # box = 4xn
+        # box = nx4
         if x1y1x2y2:
             return (box[2] - box[0]) * (box[3] - box[1])
         else:

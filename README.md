@@ -56,8 +56,8 @@ python train.py --weights preweight.pt
 
 #### Evaluate   
 ```shell
-python widerface_pred.py --weights runs/train/x/weights/best.pt     
-                         --save_folder ./widerface_evaluate/widerface_txt_x    
+python3 test_widerface.py --weights 'your test model' --img-size 640
+  
 cd widerface_evaluate/    
 python evaluation.py --pred ./widerface_txt_x
 ```
