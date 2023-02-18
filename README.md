@@ -36,14 +36,23 @@ bash data/scripts/get_widerface.sh
 ```
 
 #### Dataset
+Download the [WIDER FACE](http://shuoyang1213.me/WIDERFACE/) dataset. Then convert it to YOLO format.
+```shell
+# You can modify convert.py and voc_label.py if needed.
+python3 data/convert.py
+python3 data/voc_label.py
+```
+
 ```shell
 cd data
 python3 train2yolo.py /path/to/original/widerface/train [/path/to/save/widerface/train]
 python3 val2yolo.py  /path/to/original/widerface [/path/to/save/widerface/val]
 ```
 
-### Preweight
-Wait for a few days...
+
+## Preweight
+The link is [yolo-facev2s.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v1.0/preweight.pt)
+
 
 #### Training
 ```shell
