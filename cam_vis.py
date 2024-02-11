@@ -84,7 +84,7 @@ def main():
         print(mask.shape)
         res_img, heatmat = get_res_img(bbox, mask, res_img)
         color_img = (res_img * 255).astype(np.uint8)
-        color_img = put_text_box(bbox, cls_name, color_img)
+        # color_img = put_text_box(bbox, cls_name, color_img)
         cv2.imwrite(str(save_path / '{0}_{1}.jpg'.format(img_path.stem, i)), color_img)
 
 if __name__ == '__main__':

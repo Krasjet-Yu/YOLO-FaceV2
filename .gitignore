@@ -28,6 +28,7 @@ MANIFEST
 runs/
 preweight/
 outputs/
+widerface_evaluate/
 *.png
 *.jpg
 *.pt

@@ -9,6 +9,9 @@ sys.path.append('./')  # to run '$ python *.py' files in subdirectories
 logger = logging.getLogger(__name__)
 
 from models.common import *
+from models.attention.cbam import *
+from models.attention.se import *
+from models.attention.ema import *
 from models.experimental import *
 from utils.autoanchor import check_anchor_order
 from utils.general import make_divisible, check_file, set_logging
@@ -265,7 +268,7 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
 
         n = max(round(n * gd), 1) if n > 1 else n  # depth gain
         if m in [Conv, GhostConv, Bottleneck, GhostBottleneck, SPP, DWConv, MixConv2d, Focus, CrossConv, BottleneckCSP,
-                 C3, C3TR, SEAM, RFEM, C3RFEM, ConvMixer, MultiSEAM]:
+                 C3, C3TR, SEAM, RFEM, C3RFEM, ConvMixer, MultiSEAM, EMA, CBAM]:
             c1, c2 = ch[f], args[0]
             if c2 != no:  # if not output
                 c2 = make_divisible(c2 * gw, 8)
@@ -274,6 +277,12 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
             if m in [BottleneckCSP, C3, C3TR, C3RFEM]:
                 args.insert(2, n)  # number of repeats
                 n = 1
+        elif m is SE:
+            c1 = ch[f]
+            c2 = args[0]
+            if c2 !=no:
+                c2 = make_divisible(c2 * gw, 8)
+            args = [c1, args[1]]
         elif m is nn.BatchNorm2d:
             args = [ch[f]]
         elif m is Concat:
