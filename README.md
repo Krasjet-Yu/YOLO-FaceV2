@@ -105,6 +105,12 @@ for i in 0 1 2 3 4 5 6 7; do
 done
 ```
 
+## GradCAM
+```shell
+python3 cam_vis.py --model-path preweight/bbbest.pt --img-path data/cam_images/014625.jpg --output-dir outputs --target-layer model_31_conv --names face
+```
+![attention for evaluation of occlusion.](data/images/grad_cam.jpg)
+
 ## Reference
 *[https://github.com/ultralytics/yolov5](https://github.com/ultralytics/yolov5)*    
     
