@@ -100,13 +100,14 @@ def train(hyp, opt, device, tb_writer=None):
     test_path = data_dict['val']
 
     # Freeze
-    freeze = ['model.%s.' % x for x in range(10)]  # parameter names to freeze (full or partial)
-    # freeze = []
-    for k, v in model.named_parameters():
-        v.requires_grad = True  # train all layers
-        if any(x in k for x in freeze):
-            # print('freezing %s' % k)
-            v.requires_grad = False
+    if not opt.nofrozen:
+        freeze = ['model.%s.' % x for x in range(10)]  # parameter names to freeze (full or partial)
+        # freeze = []
+        for k, v in model.named_parameters():
+            v.requires_grad = True  # train all layers
+            if any(x in k for x in freeze):
+                # print('freezing %s' % k)
+                v.requires_grad = False
 
     # Optimizer
     nbs = 64  # nominal batch size
@@ -250,7 +251,7 @@ def train(hyp, opt, device, tb_writer=None):
                 f'Starting training for {epochs} epochs...')
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
         
-        if epoch == 50:
+        if epoch == 50 and not opt.nofrozen:
            for k, v in model.named_parameters():
                v.requires_grad = True
         
@@ -468,6 +469,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=300)
     parser.add_argument('--batch-size', type=int, default=16, help='total batch size for all GPUs')
     parser.add_argument('--img-size', nargs='+', type=int, default=[640, 640], help='[train, test] image sizes')
+    parser.add_argument('--nofrozen', action='store_true', help='disable frozen backbone')
     parser.add_argument('--rect', action='store_true', help='rectangular training')
     parser.add_argument('--resume', nargs='?', const=True, default=False, help='resume most recent training')
     parser.add_argument('--nosave', action='store_true', help='only save final checkpoint')
@@ -497,6 +499,8 @@ if __name__ == '__main__':
     parser.add_argument('--artifact_alias', type=str, default="latest", help='version of dataset artifact to be used')
     opt = parser.parse_args()
 
+    print(opt.nofrozen)
+    
     # Set DDP variables
     opt.world_size = int(os.environ['WORLD_SIZE']) if 'WORLD_SIZE' in os.environ else 1
     opt.global_rank = int(os.environ['RANK']) if 'RANK' in os.environ else -1

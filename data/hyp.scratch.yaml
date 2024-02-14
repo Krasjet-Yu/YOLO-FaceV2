@@ -38,4 +38,4 @@ fliplr: 0.5  # image flip left-right (probability)
 mosaic: 1.0  # image mosaic (probability)
 mixup: 0.0  # image mixup (probability)
 c: 1.0
-u: 1.0
+u: 0.0 # whether run SWF or not
