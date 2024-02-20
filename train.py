@@ -147,7 +147,7 @@ def train(hyp, opt, device, tb_writer=None):
     ema = ModelEMA(model) if rank in [-1, 0] else None
 
     # Resume
-    start_epoch, best_fitness = 0, 0.0
+    start_epoch, best_fitness, best_logs = 0, 0.0, {}
     if pretrained:
         # Optimizer
         if ckpt['optimizer'] is not None:
@@ -408,6 +408,7 @@ def train(hyp, opt, device, tb_writer=None):
                 # Save last, best and delete
                 torch.save(ckpt, last)
                 if best_fitness == fi:
+                    best_logs = {'epoch': epoch, 'fitness': best_fitness}
                     torch.save(ckpt, best)
                 if wandb_logger.wandb:
                     if ((epoch + 1) % opt.save_period == 0 and not final_epoch) and opt.save_period != -1:
@@ -427,6 +428,7 @@ def train(hyp, opt, device, tb_writer=None):
                                               if (save_dir / f).exists()]})
         # Test best.pt
         logger.info('%g epochs completed in %.3f hours.\n' % (epoch - start_epoch + 1, (time.time() - t0) / 3600))
+        logger.info(f'best model. {best_logs}')
         if opt.data.endswith('coco.yaml') and nc == 80:  # if COCO
             for m in (last, best) if best.exists() else (last):  # speed, mAP tests
                 results, _, _ = test.test(opt.data,
@@ -498,8 +500,6 @@ if __name__ == '__main__':
     parser.add_argument('--save_period', type=int, default=-1, help='Log model after every "save_period" epoch')
     parser.add_argument('--artifact_alias', type=str, default="latest", help='version of dataset artifact to be used')
     opt = parser.parse_args()
-
-    print(opt.nofrozen)
     
     # Set DDP variables
     opt.world_size = int(os.environ['WORLD_SIZE']) if 'WORLD_SIZE' in os.environ else 1
