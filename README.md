@@ -2,7 +2,7 @@
 
 ### Introduction
 YOLO-FaceV2: A Scale and Occlusion Aware Face Detector     
-*[https://arxiv.org/abs/2208.02019](https://arxiv.org/abs/2208.02019)*    
+*[Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320324004655)* or *[arxiv](https://arxiv.org/abs/2208.02019)*   
 
 
 ### Framework Structure
@@ -97,3 +97,26 @@ done
 *[https://github.com/deepcam-cn/yolov5-face](https://github.com/deepcam-cn/yolov5-face)*   
 *[https://github.com/open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection)*   
 *[https://github.com/dongdonghy/repulsion_loss_pytorch](https://github.com/dongdonghy/repulsion_loss_pytorch)*   
+
+### Cite
+
+If you think this work is helpful for you, please cite
+
+```shell
+@article{YU2024110714,
+title = {YOLO-FaceV2: A scale and occlusion aware face detector},
+journal = {Pattern Recognition},
+pages = {110714},
+year = {2024},
+issn = {0031-3203},
+url = {https://www.sciencedirect.com/science/article/pii/S0031320324004655},
+author = {Ziping Yu and Hongbo Huang and Weijun Chen and Yongxin Su and Yahui Liu and Xiuying Wang},
+keywords = {Face detection, YOLO, Scale-aware, Occlusion, Imbalance problem},
+}
+
+
+```
+
+### Contact
+
+We use code's license is MIT License. The code can be used for business inquiries or professional support requests.
