@@ -2,7 +2,7 @@
 
 ## Introduction
 YOLO-FaceV2: A Scale and Occlusion Aware Face Detector    
-*[https://arxiv.org/abs/2208.02019](https://arxiv.org/abs/2208.02019)*  
+*[Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320324004655)* or *[arxiv](https://arxiv.org/abs/2208.02019)*  
 
 ## Framework Structure
 ![](data/images/yolo-facev2.jpg)
@@ -126,20 +126,15 @@ python3 cam_vis.py --model-path preweight/bbbest.pt --img-path data/cam_images/0
 If you think this work is helpful for you, please cite
 
 ```shell
-@ARTICLE{2022arXiv220802019Y,
-       author = {{Yu}, Ziping and {Huang}, Hongbo and {Chen}, Weijun and {Su}, Yongxin and {Liu}, Yahui and {Wang}, Xiuying},
-        title = "{YOLO-FaceV2: A Scale and Occlusion Aware Face Detector}",
-      journal = {arXiv e-prints},
-     keywords = {Computer Science - Computer Vision and Pattern Recognition},
-         year = 2022,
-        month = aug,
-          eid = {arXiv:2208.02019},
-        pages = {arXiv:2208.02019},
-archivePrefix = {arXiv},
-       eprint = {2208.02019},
- primaryClass = {cs.CV},
-       adsurl = {https://ui.adsabs.harvard.edu/abs/2022arXiv220802019Y},
-      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+@article{YU2024110714,
+    title = {YOLO-FaceV2: A scale and occlusion aware face detector},
+    journal = {Pattern Recognition},
+    pages = {110714},
+    year = {2024},
+    issn = {0031-3203},
+    url = {https://www.sciencedirect.com/science/article/pii/S0031320324004655},
+    author = {Ziping Yu and Hongbo Huang and Weijun Chen and Yongxin Su and Yahui Liu and Xiuying Wang},
+    keywords = {Face detection, YOLO, Scale-aware, Occlusion, Imbalance problem},
 }
 
 
