@@ -51,7 +51,12 @@ python3 val2yolo.py  /path/to/original/widerface [/path/to/save/widerface/val]
 
 
 ## Preweight
-The link is [yolo-facev2s.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v1.0/preweight.pt)
+| Model            | Easy  | Medium | Hard  | PreWeight  |
+|------------------|-------|--------|-------|------------|
+| YOLO-Facev2n     | 0.936 | 0.921  | 0.812 | [yolo-facev2n.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v2.1.0/yolo-facev2m-preweight.pt) |
+| YOLO-FaceV2s     | 0.983 | 0.970  | 0.893 | [yolo-facev2s.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v2.1.0/yolo-facev2s-preweight.pt) |
+| YOLO-FaceV2m     | 0.984 | 0.973  | 0.905 | [yolo-facev2m.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v2.1.0/yolo-facev2m-preweight.pt) |
+| **YOLO-FaceV2l** | 0.986 | 0.979  | 0.919 | [yolo-facev2l.pt](https://github.com/Krasjet-Yu/YOLO-FaceV2/releases/download/v2.1.0/yolo-facev2l-preweight.pt) |
 
 
 #### Training
@@ -63,6 +68,7 @@ python train.py --weights preweight.pt
                 --epochs 250
 ```
 
+
 #### Evaluate   
 ```shell
 python3 test_widerface.py --weights 'your test model' --img-size 640
@@ -70,6 +76,22 @@ python3 test_widerface.py --weights 'your test model' --img-size 640
 cd widerface_evaluate/    
 python evaluation.py --pred ./widerface_txt_x
 ```
+<div style="display: flex; gap: 10px;">
+  <img src="assert/easy.jpg" alt="Easy" style="width: 260px;"/>
+  <img src="assert/medium.jpg" alt="Medium" style="width: 260px;"/>
+  <img src="assert/hard.jpg" alt="Hard" style="width: 260px;"/>
+</div>
+
+
+### Visualize
+Visualization of small-scale face detection effect:
+
+![](assert/scale.jpg)
+
+Visualization of the heat map effect of attention covering human faces:
+
+![](assert/occlusion.jpg)
+
 
 ### Finetune
 see in *[https://github.com/ultralytics/yolov5/issues/607](https://github.com/ultralytics/yolov5/issues/607)*
@@ -113,7 +135,6 @@ url = {https://www.sciencedirect.com/science/article/pii/S0031320324004655},
 author = {Ziping Yu and Hongbo Huang and Weijun Chen and Yongxin Su and Yahui Liu and Xiuying Wang},
 keywords = {Face detection, YOLO, Scale-aware, Occlusion, Imbalance problem},
 }
-
 
 ```
 
