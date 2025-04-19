@@ -37,5 +37,5 @@ flipud: 0.0  # image flip up-down (probability)
 fliplr: 0.5  # image flip left-right (probability)
 mosaic: 1.0  # image mosaic (probability)
 mixup: 0.0  # image mixup (probability)
-enable_reswan: -1.0 # reswan loss
-nwd_weight: 1.0 # nwd weight
+c: 1.0
+u: 1.0

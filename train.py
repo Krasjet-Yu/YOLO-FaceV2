@@ -148,7 +148,7 @@ def train(hyp, opt, device, tb_writer=None):
 
     # Resume
     start_epoch, best_fitness, best_logs = 0, 0.0, {}
-    if pretrained:
+    if not pretrained:
         # Optimizer
         if ckpt['optimizer'] is not None:
             optimizer.load_state_dict(ckpt['optimizer'])

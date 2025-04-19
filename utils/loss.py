@@ -157,10 +157,10 @@ class ComputeLoss:
         # Class label smoothing https://arxiv.org/pdf/1902.04103.pdf eqn 3
         self.cp, self.cn = smooth_BCE(eps=h.get('label_smoothing', 0.0))  # positive, negative BCE targets
 
-        self.C = h['c']
+        self.nwd_weight = h['nwd_weight']
         # reswan loss
-        self.u = h['u']
-        if self.u > 0:
+        self.enable_reswan = h['enable_reswan']
+        if self.nwd_weight > 0:
             BCEcls, BCEobj = reSwanLoss(BCEcls), reSwanLoss(BCEobj)
 
         # Focal loss
@@ -197,7 +197,7 @@ class ComputeLoss:
                 pwh = (ps[:, 2:4].sigmoid() * 2) ** 2 * anchors[i]
                 pbox = torch.cat((pxy, pwh), 1)  # predicted box
                 iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, CIoU=True)  # iou(prediction, target)
-                nwd = torch.exp(-torch.pow(Wasserstein(pbox.T, tbox[i], x1y1x2y2=False), 1 / 2) / self.C)
+                nwd = torch.exp(-torch.pow(Wasserstein(pbox.T, tbox[i], x1y1x2y2=False), 1 / 2) / self.nwd_weight)
                 auto_iou = iou.mean()
                 # lbox += (1.0 - iou).mean()  # iou loss
                 lbox += 0.8 * (1.0 - iou).mean() + 0.2 * (1.0 - nwd).mean()
@@ -209,7 +209,7 @@ class ComputeLoss:
                 if self.nc > 1:  # cls loss (only if multiple classes)
                     t = torch.full_like(ps[:, 15:], self.cn, device=device)  # targets
                     t[range(n), tcls[i]] = self.cp
-                    if self.u > 0:
+                    if self.enable_reswan > 0:
                         lcls += self.BCEcls(ps[:, 15:], t, auto_iou)  # BCE
                     else:
                         lcls += self.BCEcls(ps[:, 15:], t)  # BCE
@@ -263,7 +263,7 @@ class ComputeLoss:
                 # Append targets to text file
                 # with open('targets.txt', 'a') as file:
                 #     [file.write('%11.5g ' * 4 % tuple(x) + '\n') for x in torch.cat((txy[i], twh[i]), 1)]
-            if self.u > 0 and n:
+            if self.enable_reswan > 0 and n:
                 obji = self.BCEobj(pi[..., 4], tobj, auto_iou)
             else:
                 obji = self.BCEobj(pi[..., 4], tobj)

@@ -4,8 +4,8 @@
 
 
 
-lr0: 0.001  # initial learning rate (SGD=1E-2, Adam=1E-3)
-lrf: 0.01  # final OneCycleLR learning rate (lr0 * lrf)
+lr0: 0.01  # initial learning rate (SGD=1E-2, Adam=1E-3)
+lrf: 0.2  # final OneCycleLR learning rate (lr0 * lrf)
 momentum: 0.937  # SGD momentum/Adam beta1
 weight_decay: 0.0005  # optimizer weight decay 5e-4
 warmup_epochs: 3.0  # warmup epochs (fractions ok)
@@ -13,12 +13,12 @@ warmup_momentum: 0.8  # warmup initial momentum
 warmup_bias_lr: 0.1  # warmup initial bias lr
 box: 0.05  # box loss gain
 cls: 0.5  # cls loss gain
-landmark: 0.001 # landmark loss gain
+landmark: 0.000 # landmark loss gain
 cls_pw: 1.0  # cls BCELoss positive_weight
-obj: 0.7 # obj loss gain (scale with pixels)
+obj: 1.0 # obj loss gain (scale with pixels)
 obj_pw: 1.0  # obj BCELoss positive_weight
-alpha: 0.01 # RepGT loss gain 0.04, init: 0.233 * 2
-beta: 0.1 # RepBox loss gain 0.6, init: 0.0222 * 2
+alpha: 0.0 # RepGT loss gain 0.04, init: 0.233 * 2
+beta: 0.0 # RepBox loss gain 0.6, init: 0.0222 * 2
 deta: 0.5 # smooth_ln parameter
 Rp_nms: 0.1 # RepGT loss nms
 iou_t: 0.20  # IoU training threshold
@@ -37,5 +37,5 @@ flipud: 0.0  # image flip up-down (probability)
 fliplr: 0.5  # image flip left-right (probability)
 mosaic: 1.0  # image mosaic (probability)
 mixup: 0.0  # image mixup (probability)
-enable_reswan: -1.0 # reswan loss
-nwd_weight: 1.0 # nwd weight
+c: 1.0 # NWD loss hyp
+u: 0.0 # whether reswan func or not
