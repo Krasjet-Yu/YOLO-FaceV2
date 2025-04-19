@@ -86,11 +86,15 @@ python evaluation.py --pred ./widerface_txt_x
 ### Visualize
 Visualization of small-scale face detection effect:
 
-![](assert/scale.jpg)
+<p align = "center">    
+<img  src="assert/scale.jpg" width="350" />
+</p>
 
 Visualization of the heat map effect of attention covering human faces:
 
-![](assert/occlusion.jpg)
+<p align = "center">    
+<img  src="assert/occlusion.jpg" width="350" />
+</p>
 
 
 ### Finetune
